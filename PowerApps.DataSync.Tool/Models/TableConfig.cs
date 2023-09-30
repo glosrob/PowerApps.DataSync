@@ -19,6 +19,8 @@ namespace PowerApps.DataSync.Tool.Models
 
         internal string IdAttribute { get; set; }
 
+        internal string DisplayAttribute { get; set; }
+
         internal List<string> Fields { get; set; }
 
         internal string Filter { get; set; }

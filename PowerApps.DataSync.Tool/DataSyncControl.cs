@@ -5,7 +5,7 @@ using PowerApps.DataSync.Tool.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Windows.Forms;
+using System.Linq;
 using XrmToolBox.Extensibility;
 
 namespace PowerApps.DataSync.Tool
@@ -80,17 +80,23 @@ namespace PowerApps.DataSync.Tool
 
         private void BtnTarget_Click(object sender, EventArgs e)
         {
-            AddAdditionalOrganization();
+            btnTarget.Invoke(() =>
+            {
+                base.AddAdditionalOrganization();
+            });
         }
 
-        private async void BtnConfig_Click(object sender, EventArgs e)
+        private void BtnConfig_Click(object sender, EventArgs e)
         {
-            await Controller.LoadConfig();
+            btnConfig.Invoke(async () =>
+            {
+                await Controller.LoadConfig();
+            });
         }
 
-        private async void BtnGo_Click(object sender, EventArgs e)
+        private void BtnGo_Click(object sender, EventArgs e)
         {
-            btnGo.Invoke(() =>
+            btnGo.Invoke(async () =>
             {
                 await Controller.Go();
             });
@@ -136,6 +142,38 @@ namespace PowerApps.DataSync.Tool
             ssMain.Invoke(() =>
             {
                 ssMainLabel.Text = msg;
+            });
+        }
+
+        internal void DisplayIssues(List<ISyncIssue> allIssues)
+        {
+            tvResults.Invoke(() =>
+            {
+                tvResults.Nodes.Clear();
+
+                var groups = allIssues.GroupBy(x => x.Config.Schema)
+                                      .OrderBy(x => x.First().Config.Name);
+                foreach (var group in groups)
+                {
+                    var issuesText = group.Count() == 1 ? "1 issue" : $"{group.Count()} issues";
+                    var parentNode = tvResults.Nodes.Add(group.First().Config.Schema, $"{group.First().Config.Name} ({issuesText})");
+
+                    var missingCount = group.Count(x => x is MissingInTargetIssue);
+                    var missingIssuesText = missingCount == 1 ? "1 issue" : $"{missingCount} issues";
+                    var missingInTargetNode = parentNode.Nodes.Add("missingInTarget", $"Missing in Target ({missingIssuesText})");
+                    foreach (var issue in group.Where(x => x is MissingInTargetIssue))
+                    {
+                        missingInTargetNode.Nodes.Add(issue.Id.ToString(), issue.ToString());
+                    }
+
+                    var valuesCount = group.Count(x => x is ValueDoesNotMatchIssue);
+                    var valuesIssuesText = valuesCount == 1 ? "1 issue" : $"{valuesCount} issues";
+                    var valuesDoNotMatchNode = parentNode.Nodes.Add("valuesDoNotMatch", $"Values Do Not Match ({valuesIssuesText})");
+                    foreach (var issue in group.Where(x => x is ValueDoesNotMatchIssue))
+                    {
+                        valuesDoNotMatchNode.Nodes.Add(issue.Id.ToString(), issue.ToString());
+                    }
+                }
             });
         }
 

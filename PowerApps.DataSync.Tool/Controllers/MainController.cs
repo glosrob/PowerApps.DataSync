@@ -4,6 +4,7 @@ using PowerApps.DataSync.Tool.Data;
 using PowerApps.DataSync.Tool.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PowerApps.DataSync.Tool.Controllers
@@ -74,6 +75,7 @@ namespace PowerApps.DataSync.Tool.Controllers
                         Name = "Portal Content",
                         Order = 1,
                         PrimaryField = "xrt_name",
+                        DisplayAttribute = "xrt_name",
                         SyncAttribute = "xrt_portalcontentid"
                     }
                 };
@@ -89,32 +91,42 @@ namespace PowerApps.DataSync.Tool.Controllers
                 return;
             }
 
-            foreach(var config in Config)
+            await Task.Run(() =>
             {
-                try
+                var total = Config.Count;
+                var ctr = 0;
+                foreach (var config in Config)
                 {
-                    await Task.Run(() =>
+                    try
                     {
+                        ctr++;
                         DataSync.UpdateStatus($"Checking {config.Name} - retrieving records");
                         var sourceRecords = Source.GetRecords(config);
                         var targetRecords = Target.GetRecords(config);
 
-                        var total = sourceRecords.Count;
-                        var ctr = 0;
-                        foreach(var sourceRecord in sourceRecords)
+                        var allIssues = new List<ISyncIssue>();
+                        DataSync.UpdateStatus($"Checking {config.Name} - comparing {ctr} of {total}");
+                        var comparer = new TableComparer
                         {
-                            ctr++;
-                            DataSync.UpdateStatus($"Checking {config.Name} - comparing {ctr} of {total}");
+                            SourceConfig = config,
+                            SourceRecords = sourceRecords,
+                            TargetRecords = targetRecords
+                        };
+                        allIssues.AddRange(comparer.CheckForIssues());
+                        allIssues = allIssues
+                            .OrderBy(x => x.Config.Name)
+                            .ThenBy(x => x.SourceDisplay)
+                            .ToList();
 
-
-                        }
-                    });
+                        DataSync.DisplayIssues(allIssues);
+                    }
+                    catch (Exception ex)
+                    {
+                        DataSync.UpdateStatus($"Error checking for sync issues for {config.Name} ({ex.Message} [{ex.GetType().Name}])");
+                        break;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    DataSync.UpdateStatus($"Error checking for sync issues for {config.Name} ({ex.Message} [{ex.GetType().Name}])");
-                }
-            }
+            });
         }
     }
 }

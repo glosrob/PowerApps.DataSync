@@ -35,24 +35,28 @@
             this.lblSource = new System.Windows.Forms.Label();
             this.btnSource = new System.Windows.Forms.Button();
             this.gbOptions = new System.Windows.Forms.GroupBox();
-            this.btnGo = new System.Windows.Forms.Button();
             this.btnConfig = new System.Windows.Forms.Button();
+            this.btnGo = new System.Windows.Forms.Button();
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.ssMainLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.grpSource = new System.Windows.Forms.GroupBox();
+            this.grpTarget = new System.Windows.Forms.GroupBox();
+            this.txtSource = new System.Windows.Forms.TextBox();
+            this.txtTarget = new System.Windows.Forms.TextBox();
             this.gbConnections.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.ssMain.SuspendLayout();
+            this.grpSource.SuspendLayout();
+            this.grpTarget.SuspendLayout();
             this.SuspendLayout();
             // 
             // tvResults
             // 
-            this.tvResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvResults.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.tvResults.Location = new System.Drawing.Point(3, 91);
-            this.tvResults.MinimumSize = new System.Drawing.Size(300, 4);
             this.tvResults.Name = "tvResults";
-            this.tvResults.Size = new System.Drawing.Size(300, 511);
+            this.tvResults.Size = new System.Drawing.Size(569, 511);
             this.tvResults.TabIndex = 1;
             // 
             // gbConnections
@@ -115,15 +119,6 @@
             this.gbOptions.TabStop = false;
             this.gbOptions.Text = "Options";
             // 
-            // btnGo
-            // 
-            this.btnGo.Location = new System.Drawing.Point(6, 45);
-            this.btnGo.Name = "btnGo";
-            this.btnGo.Size = new System.Drawing.Size(75, 23);
-            this.btnGo.TabIndex = 0;
-            this.btnGo.Text = "Start";
-            this.btnGo.UseVisualStyleBackColor = true;
-            // 
             // btnConfig
             // 
             this.btnConfig.Location = new System.Drawing.Point(6, 19);
@@ -132,6 +127,15 @@
             this.btnConfig.TabIndex = 1;
             this.btnConfig.Text = "Config";
             this.btnConfig.UseVisualStyleBackColor = true;
+            // 
+            // btnGo
+            // 
+            this.btnGo.Location = new System.Drawing.Point(6, 45);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.Size = new System.Drawing.Size(75, 23);
+            this.btnGo.TabIndex = 0;
+            this.btnGo.Text = "Start";
+            this.btnGo.UseVisualStyleBackColor = true;
             // 
             // ssMain
             // 
@@ -148,10 +152,48 @@
             this.ssMainLabel.Name = "ssMainLabel";
             this.ssMainLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // grpSource
+            // 
+            this.grpSource.Controls.Add(this.txtSource);
+            this.grpSource.Location = new System.Drawing.Point(578, 91);
+            this.grpSource.Name = "grpSource";
+            this.grpSource.Size = new System.Drawing.Size(498, 245);
+            this.grpSource.TabIndex = 5;
+            this.grpSource.TabStop = false;
+            this.grpSource.Text = "Source";
+            // 
+            // grpTarget
+            // 
+            this.grpTarget.Controls.Add(this.txtTarget);
+            this.grpTarget.Location = new System.Drawing.Point(578, 342);
+            this.grpTarget.Name = "grpTarget";
+            this.grpTarget.Size = new System.Drawing.Size(498, 260);
+            this.grpTarget.TabIndex = 6;
+            this.grpTarget.TabStop = false;
+            this.grpTarget.Text = "Target";
+            // 
+            // txtSource
+            // 
+            this.txtSource.Location = new System.Drawing.Point(6, 41);
+            this.txtSource.Multiline = true;
+            this.txtSource.Name = "txtSource";
+            this.txtSource.Size = new System.Drawing.Size(486, 198);
+            this.txtSource.TabIndex = 0;
+            // 
+            // txtTarget
+            // 
+            this.txtTarget.Location = new System.Drawing.Point(6, 56);
+            this.txtTarget.Multiline = true;
+            this.txtTarget.Name = "txtTarget";
+            this.txtTarget.Size = new System.Drawing.Size(486, 198);
+            this.txtTarget.TabIndex = 1;
+            // 
             // DataSyncControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.grpTarget);
+            this.Controls.Add(this.grpSource);
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.gbOptions);
             this.Controls.Add(this.gbConnections);
@@ -163,6 +205,10 @@
             this.gbOptions.ResumeLayout(false);
             this.ssMain.ResumeLayout(false);
             this.ssMain.PerformLayout();
+            this.grpSource.ResumeLayout(false);
+            this.grpSource.PerformLayout();
+            this.grpTarget.ResumeLayout(false);
+            this.grpTarget.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -180,5 +226,9 @@
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.StatusStrip ssMain;
         private System.Windows.Forms.ToolStripStatusLabel ssMainLabel;
+        private System.Windows.Forms.GroupBox grpSource;
+        private System.Windows.Forms.GroupBox grpTarget;
+        private System.Windows.Forms.TextBox txtSource;
+        private System.Windows.Forms.TextBox txtTarget;
     }
 }

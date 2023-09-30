@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xrm.Sdk;
+using System;
 using System.Windows.Forms;
 
 namespace PowerApps.DataSync.Tool.Models
@@ -23,6 +24,19 @@ namespace PowerApps.DataSync.Tool.Models
             {
                 a.Invoke();
             }
+        }
+
+        internal static string GetDisplayValue(this Entity entity, string attributeName)
+        {
+            if (entity.FormattedValues.Contains(attributeName))
+            {
+                return entity.FormattedValues[attributeName];
+            }
+            if (entity.Contains(attributeName))
+            {
+                return entity[attributeName].ToString();
+            }
+            return string.Empty;
         }
     }
 }
