@@ -36,8 +36,12 @@
             this.btnSource = new System.Windows.Forms.Button();
             this.gbOptions = new System.Windows.Forms.GroupBox();
             this.btnGo = new System.Windows.Forms.Button();
+            this.btnConfig = new System.Windows.Forms.Button();
+            this.ssMain = new System.Windows.Forms.StatusStrip();
+            this.ssMainLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.gbConnections.SuspendLayout();
             this.gbOptions.SuspendLayout();
+            this.ssMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // tvResults
@@ -48,7 +52,7 @@
             this.tvResults.Location = new System.Drawing.Point(3, 91);
             this.tvResults.MinimumSize = new System.Drawing.Size(300, 4);
             this.tvResults.Name = "tvResults";
-            this.tvResults.Size = new System.Drawing.Size(300, 533);
+            this.tvResults.Size = new System.Drawing.Size(300, 511);
             this.tvResults.TabIndex = 1;
             // 
             // gbConnections
@@ -102,6 +106,7 @@
             // 
             // gbOptions
             // 
+            this.gbOptions.Controls.Add(this.btnConfig);
             this.gbOptions.Controls.Add(this.btnGo);
             this.gbOptions.Location = new System.Drawing.Point(366, 3);
             this.gbOptions.Name = "gbOptions";
@@ -112,17 +117,42 @@
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(6, 19);
+            this.btnGo.Location = new System.Drawing.Point(6, 45);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(75, 23);
             this.btnGo.TabIndex = 0;
             this.btnGo.Text = "Start";
             this.btnGo.UseVisualStyleBackColor = true;
             // 
+            // btnConfig
+            // 
+            this.btnConfig.Location = new System.Drawing.Point(6, 19);
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(75, 23);
+            this.btnConfig.TabIndex = 1;
+            this.btnConfig.Text = "Config";
+            this.btnConfig.UseVisualStyleBackColor = true;
+            // 
+            // ssMain
+            // 
+            this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ssMainLabel});
+            this.ssMain.Location = new System.Drawing.Point(0, 605);
+            this.ssMain.Name = "ssMain";
+            this.ssMain.Size = new System.Drawing.Size(1079, 22);
+            this.ssMain.TabIndex = 4;
+            this.ssMain.Text = "statusStrip1";
+            // 
+            // ssMainLabel
+            // 
+            this.ssMainLabel.Name = "ssMainLabel";
+            this.ssMainLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // DataSyncControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ssMain);
             this.Controls.Add(this.gbOptions);
             this.Controls.Add(this.gbConnections);
             this.Controls.Add(this.tvResults);
@@ -131,7 +161,10 @@
             this.gbConnections.ResumeLayout(false);
             this.gbConnections.PerformLayout();
             this.gbOptions.ResumeLayout(false);
+            this.ssMain.ResumeLayout(false);
+            this.ssMain.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -144,5 +177,8 @@
         private System.Windows.Forms.Button btnSource;
         private System.Windows.Forms.GroupBox gbOptions;
         private System.Windows.Forms.Button btnGo;
+        private System.Windows.Forms.Button btnConfig;
+        private System.Windows.Forms.StatusStrip ssMain;
+        private System.Windows.Forms.ToolStripStatusLabel ssMainLabel;
     }
 }

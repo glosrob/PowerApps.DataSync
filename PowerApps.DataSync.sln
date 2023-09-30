@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerApps.DataSync.Tool", "PowerApps.DataSync.Tool\PowerApps.DataSync.Tool.csproj", "{7C9045E4-89B8-4EC4-B5F9-09604305BC3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerApps.DataSync.UnitTests", "PowerApps.DataSync.UnitTests\PowerApps.DataSync.UnitTests.csproj", "{D578CAB9-29F9-4FB1-8435-F4D721CD855B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7C9045E4-89B8-4EC4-B5F9-09604305BC3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C9045E4-89B8-4EC4-B5F9-09604305BC3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C9045E4-89B8-4EC4-B5F9-09604305BC3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D578CAB9-29F9-4FB1-8435-F4D721CD855B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D578CAB9-29F9-4FB1-8435-F4D721CD855B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D578CAB9-29F9-4FB1-8435-F4D721CD855B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D578CAB9-29F9-4FB1-8435-F4D721CD855B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,11 @@
 ﻿using McTools.Xrm.Connection;
-using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using PowerApps.DataSync.Tool.Controllers;
 using PowerApps.DataSync.Tool.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
 namespace PowerApps.DataSync.Tool
@@ -36,6 +37,7 @@ namespace PowerApps.DataSync.Tool
                 // Event handlers - buttons
                 btnSource.Click += BtnSource_Click;
                 btnTarget.Click += BtnTarget_Click;
+                btnConfig.Click += BtnConfig_Click;
                 btnGo.Click += BtnGo_Click; ;
             };
         }
@@ -81,11 +83,16 @@ namespace PowerApps.DataSync.Tool
             AddAdditionalOrganization();
         }
 
-        private void BtnGo_Click(object sender, EventArgs e)
+        private async void BtnConfig_Click(object sender, EventArgs e)
+        {
+            await Controller.LoadConfig();
+        }
+
+        private async void BtnGo_Click(object sender, EventArgs e)
         {
             btnGo.Invoke(() =>
             {
-                Controller.Go();
+                await Controller.Go();
             });
         }
 
@@ -109,6 +116,26 @@ namespace PowerApps.DataSync.Tool
             lblTarget.Invoke(() =>
             {
                 lblTarget.Text = name;
+            });
+        }
+
+        internal void DisplayConfigs(List<TableConfig> tableConfigs)
+        {
+            tvResults.Invoke(() =>
+            {
+                tvResults.Nodes.Clear();
+                foreach (var tableConfig in tableConfigs)
+                {
+                    tvResults.Nodes.Add(tableConfig.Schema, tableConfig.Name);
+                }
+            });
+        }
+
+        internal void UpdateStatus(string msg)
+        {
+            ssMain.Invoke(() =>
+            {
+                ssMainLabel.Text = msg;
             });
         }
 

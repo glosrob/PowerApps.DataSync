@@ -2,7 +2,9 @@
 using Microsoft.Xrm.Sdk;
 using PowerApps.DataSync.Tool.Data;
 using PowerApps.DataSync.Tool.Models;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PowerApps.DataSync.Tool.Controllers
 {
@@ -23,13 +25,7 @@ namespace PowerApps.DataSync.Tool.Controllers
             DataSync = view;
             Source = new DataSyncData();
             Target = new DataSyncData();
-
-            // Temp for testing
             Config = new List<TableConfig>();
-            Config.Add(new TableConfig
-            {
-                Fields = new List<string> { "xrt_name", "xrt_value", "xrt_ishtml" },
-            });
         }
 
         // Properties
@@ -43,10 +39,6 @@ namespace PowerApps.DataSync.Tool.Controllers
         private Settings AppSettings { get; set; }
 
         private List<TableConfig> Config { get; set; }
-
-        internal bool SourceIsConnected => Source.IsSourceConnected;
-
-        internal bool TargetIsConnected => Target.IsSourceConnected;
 
         // Methods
 
@@ -67,9 +59,62 @@ namespace PowerApps.DataSync.Tool.Controllers
             DataSync.SetTargetDetails(Target.OrgName);
         }
 
-        internal void Go()
+        internal async Task LoadConfig()
         {
+            await Task.Run(() =>
+            {
+                Config = new List<TableConfig>
+                {
+                    new TableConfig
+                    {
+                        Fields = new List<string> { "xrt_name", "xrt_value", "xrt_ishtml" },
+                        Filter = "<filter type=\"and\"><condition attribute=\"statuscode\" operator=\"eq\" value=\"1\" /></filter>",
+                        IdAttribute = "xrt_portalcontentid",
+                        Schema = "xrt_portalcontent",
+                        Name = "Portal Content",
+                        Order = 1,
+                        PrimaryField = "xrt_name",
+                        SyncAttribute = "xrt_portalcontentid"
+                    }
+                };
+                DataSync.DisplayConfigs(Config);
+            });
+        }
 
+        internal async Task Go()
+        {
+            if (!Source.IsConnected || !Target.IsConnected)
+            {
+                DataSync.UpdateStatus($"You need to connect to a source and target environment.");
+                return;
+            }
+
+            foreach(var config in Config)
+            {
+                try
+                {
+                    await Task.Run(() =>
+                    {
+                        DataSync.UpdateStatus($"Checking {config.Name} - retrieving records");
+                        var sourceRecords = Source.GetRecords(config);
+                        var targetRecords = Target.GetRecords(config);
+
+                        var total = sourceRecords.Count;
+                        var ctr = 0;
+                        foreach(var sourceRecord in sourceRecords)
+                        {
+                            ctr++;
+                            DataSync.UpdateStatus($"Checking {config.Name} - comparing {ctr} of {total}");
+
+
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    DataSync.UpdateStatus($"Error checking for sync issues for {config.Name} ({ex.Message} [{ex.GetType().Name}])");
+                }
+            }
         }
     }
 }
