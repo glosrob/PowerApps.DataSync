@@ -128,5 +128,17 @@ namespace PowerApps.DataSync.Tool.Controllers
                 }
             });
         }
+
+        internal void IssueClicked(ISyncIssue issue)
+        {
+            if (issue == null)
+            {
+                DataSync.ResetSelectedIssue();
+            }
+            else
+            {
+                DataSync.DisplayIssueDetails(issue);
+            }
+        }
     }
 }

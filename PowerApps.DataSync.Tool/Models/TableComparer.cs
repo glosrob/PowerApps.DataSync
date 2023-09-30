@@ -37,7 +37,9 @@ namespace PowerApps.DataSync.Tool.Models
                     }
                 }
             }
-            return issues;
+            
+            
+   return issues;
         }
     }
 }

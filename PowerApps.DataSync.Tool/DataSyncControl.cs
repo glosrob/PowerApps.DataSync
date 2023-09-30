@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
 namespace PowerApps.DataSync.Tool
@@ -39,6 +40,10 @@ namespace PowerApps.DataSync.Tool
                 btnTarget.Click += BtnTarget_Click;
                 btnConfig.Click += BtnConfig_Click;
                 btnGo.Click += BtnGo_Click; ;
+
+                // Event handlers - treeview
+                tvResults.NodeMouseClick += TvResults_NodeMouseClick;
+
             };
         }
 
@@ -99,6 +104,15 @@ namespace PowerApps.DataSync.Tool
             btnGo.Invoke(async () =>
             {
                 await Controller.Go();
+            });
+        }
+
+        private void TvResults_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
+        {
+            tvResults.Invoke(() =>
+            {
+                var issue = e.Node.Tag as ISyncIssue;
+                Controller.IssueClicked(issue);
             });
         }
 
@@ -163,7 +177,12 @@ namespace PowerApps.DataSync.Tool
                     var missingInTargetNode = parentNode.Nodes.Add("missingInTarget", $"Missing in Target ({missingIssuesText})");
                     foreach (var issue in group.Where(x => x is MissingInTargetIssue))
                     {
-                        missingInTargetNode.Nodes.Add(issue.Id.ToString(), issue.ToString());
+                        var missingNode = new TreeNode
+                        {
+                            Text = issue.ToString(),
+                            Tag = issue
+                        };
+                        missingInTargetNode.Nodes.Add(missingNode);
                     }
 
                     var valuesCount = group.Count(x => x is ValueDoesNotMatchIssue);
@@ -171,10 +190,34 @@ namespace PowerApps.DataSync.Tool
                     var valuesDoNotMatchNode = parentNode.Nodes.Add("valuesDoNotMatch", $"Values Do Not Match ({valuesIssuesText})");
                     foreach (var issue in group.Where(x => x is ValueDoesNotMatchIssue))
                     {
-                        valuesDoNotMatchNode.Nodes.Add(issue.Id.ToString(), issue.ToString());
+                        var valueNode = new TreeNode
+                        {
+                            Text = issue.ToString(),
+                            Tag = issue
+                        };
+                        valuesDoNotMatchNode.Nodes.Add(valueNode);
                     }
                 }
             });
+        }
+
+        internal void ResetSelectedIssue()
+        {
+            llCopyFromSource.Enabled = false;
+            llViewSource.Enabled = false;
+            llViewTargetRecord.Enabled = false;
+            txtSource.Text = string.Empty;
+            txtTarget.Text = string.Empty;
+        }
+
+        internal void DisplayIssueDetails(ISyncIssue issue)
+        {
+            llCopyFromSource.Enabled = true;
+            llViewSource.Enabled = true;
+            llViewTargetRecord.Enabled = true;
+            txtSource.Text = issue.SourceDisplay ?? string.Empty;
+            txtTarget.Text = issue.TargetDisplay ?? string.Empty;
+
         }
 
         //private void MyPluginControl_Load(object sender, EventArgs e)

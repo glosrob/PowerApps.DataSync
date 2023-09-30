@@ -40,9 +40,12 @@
             this.ssMain = new System.Windows.Forms.StatusStrip();
             this.ssMainLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.grpSource = new System.Windows.Forms.GroupBox();
-            this.grpTarget = new System.Windows.Forms.GroupBox();
+            this.llViewSource = new System.Windows.Forms.LinkLabel();
             this.txtSource = new System.Windows.Forms.TextBox();
+            this.grpTarget = new System.Windows.Forms.GroupBox();
+            this.llCopyFromSource = new System.Windows.Forms.LinkLabel();
             this.txtTarget = new System.Windows.Forms.TextBox();
+            this.llViewTargetRecord = new System.Windows.Forms.LinkLabel();
             this.gbConnections.SuspendLayout();
             this.gbOptions.SuspendLayout();
             this.ssMain.SuspendLayout();
@@ -154,6 +157,7 @@
             // 
             // grpSource
             // 
+            this.grpSource.Controls.Add(this.llViewSource);
             this.grpSource.Controls.Add(this.txtSource);
             this.grpSource.Location = new System.Drawing.Point(578, 91);
             this.grpSource.Name = "grpSource";
@@ -162,8 +166,30 @@
             this.grpSource.TabStop = false;
             this.grpSource.Text = "Source";
             // 
+            // llViewSource
+            // 
+            this.llViewSource.AutoSize = true;
+            this.llViewSource.Enabled = false;
+            this.llViewSource.Location = new System.Drawing.Point(7, 20);
+            this.llViewSource.Name = "llViewSource";
+            this.llViewSource.Size = new System.Drawing.Size(30, 13);
+            this.llViewSource.TabIndex = 1;
+            this.llViewSource.TabStop = true;
+            this.llViewSource.Text = "View";
+            // 
+            // txtSource
+            // 
+            this.txtSource.Enabled = false;
+            this.txtSource.Location = new System.Drawing.Point(6, 36);
+            this.txtSource.Multiline = true;
+            this.txtSource.Name = "txtSource";
+            this.txtSource.Size = new System.Drawing.Size(486, 203);
+            this.txtSource.TabIndex = 0;
+            // 
             // grpTarget
             // 
+            this.grpTarget.Controls.Add(this.llViewTargetRecord);
+            this.grpTarget.Controls.Add(this.llCopyFromSource);
             this.grpTarget.Controls.Add(this.txtTarget);
             this.grpTarget.Location = new System.Drawing.Point(578, 342);
             this.grpTarget.Name = "grpTarget";
@@ -172,21 +198,35 @@
             this.grpTarget.TabStop = false;
             this.grpTarget.Text = "Target";
             // 
-            // txtSource
+            // llCopyFromSource
             // 
-            this.txtSource.Location = new System.Drawing.Point(6, 41);
-            this.txtSource.Multiline = true;
-            this.txtSource.Name = "txtSource";
-            this.txtSource.Size = new System.Drawing.Size(486, 198);
-            this.txtSource.TabIndex = 0;
+            this.llCopyFromSource.AutoSize = true;
+            this.llCopyFromSource.Enabled = false;
+            this.llCopyFromSource.Location = new System.Drawing.Point(43, 25);
+            this.llCopyFromSource.Name = "llCopyFromSource";
+            this.llCopyFromSource.Size = new System.Drawing.Size(91, 13);
+            this.llCopyFromSource.TabIndex = 3;
+            this.llCopyFromSource.TabStop = true;
+            this.llCopyFromSource.Text = "Copy from Source";
             // 
             // txtTarget
             // 
-            this.txtTarget.Location = new System.Drawing.Point(6, 56);
+            this.txtTarget.Enabled = false;
+            this.txtTarget.Location = new System.Drawing.Point(6, 41);
             this.txtTarget.Multiline = true;
             this.txtTarget.Name = "txtTarget";
-            this.txtTarget.Size = new System.Drawing.Size(486, 198);
+            this.txtTarget.Size = new System.Drawing.Size(486, 213);
             this.txtTarget.TabIndex = 1;
+            // 
+            // llViewTargetRecord
+            // 
+            this.llViewTargetRecord.AutoSize = true;
+            this.llViewTargetRecord.Location = new System.Drawing.Point(7, 25);
+            this.llViewTargetRecord.Name = "llViewTargetRecord";
+            this.llViewTargetRecord.Size = new System.Drawing.Size(30, 13);
+            this.llViewTargetRecord.TabIndex = 4;
+            this.llViewTargetRecord.TabStop = true;
+            this.llViewTargetRecord.Text = "View";
             // 
             // DataSyncControl
             // 
@@ -230,5 +270,8 @@
         private System.Windows.Forms.GroupBox grpTarget;
         private System.Windows.Forms.TextBox txtSource;
         private System.Windows.Forms.TextBox txtTarget;
+        private System.Windows.Forms.LinkLabel llViewSource;
+        private System.Windows.Forms.LinkLabel llCopyFromSource;
+        private System.Windows.Forms.LinkLabel llViewTargetRecord;
     }
 }
