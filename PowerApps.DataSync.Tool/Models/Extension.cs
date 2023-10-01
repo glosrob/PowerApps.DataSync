@@ -34,6 +34,18 @@ namespace PowerApps.DataSync.Tool.Models
             }
             if (entity.Contains(attributeName))
             {
+                if (entity[attributeName] is OptionSetValue osv)
+                {
+                    return osv.Value.ToString();
+                }
+                if (entity[attributeName] is Money mon)
+                {
+                    return mon.Value.ToString();
+                }
+                if (entity[attributeName] is EntityReference er)
+                {
+                    return er.Id.ToString();
+                }
                 return entity[attributeName].ToString();
             }
             return string.Empty;
