@@ -179,10 +179,10 @@
             // 
             // txtSource
             // 
-            this.txtSource.Enabled = false;
             this.txtSource.Location = new System.Drawing.Point(6, 36);
             this.txtSource.Multiline = true;
             this.txtSource.Name = "txtSource";
+            this.txtSource.ReadOnly = true;
             this.txtSource.Size = new System.Drawing.Size(486, 203);
             this.txtSource.TabIndex = 0;
             // 
@@ -211,16 +211,17 @@
             // 
             // txtTarget
             // 
-            this.txtTarget.Enabled = false;
             this.txtTarget.Location = new System.Drawing.Point(6, 41);
             this.txtTarget.Multiline = true;
             this.txtTarget.Name = "txtTarget";
+            this.txtTarget.ReadOnly = true;
             this.txtTarget.Size = new System.Drawing.Size(486, 213);
             this.txtTarget.TabIndex = 1;
             // 
             // llViewTargetRecord
             // 
             this.llViewTargetRecord.AutoSize = true;
+            this.llViewTargetRecord.Enabled = false;
             this.llViewTargetRecord.Location = new System.Drawing.Point(7, 25);
             this.llViewTargetRecord.Name = "llViewTargetRecord";
             this.llViewTargetRecord.Size = new System.Drawing.Size(30, 13);

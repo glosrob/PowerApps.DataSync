@@ -41,6 +41,8 @@ namespace PowerApps.DataSync.Tool.Controllers
 
         private List<TableConfig> Config { get; set; }
 
+        private ISyncIssue SelectedIssue { get; set; }
+
         // Methods
 
         internal void Load(Settings appSettings)
@@ -131,6 +133,7 @@ namespace PowerApps.DataSync.Tool.Controllers
 
         internal void IssueClicked(ISyncIssue issue)
         {
+            SelectedIssue = issue;
             if (issue == null)
             {
                 DataSync.ResetSelectedIssue();
@@ -139,6 +142,24 @@ namespace PowerApps.DataSync.Tool.Controllers
             {
                 DataSync.DisplayIssueDetails(issue);
             }
+        }
+
+        internal void OpenTarget()
+        {
+            if (SelectedIssue == null)
+            {
+                return;
+            }
+            throw new NotImplementedException();
+        }
+
+        internal void OpenSource()
+        {
+            if (SelectedIssue == null)
+            {
+                return;
+            }
+            throw new NotImplementedException();
         }
     }
 }
