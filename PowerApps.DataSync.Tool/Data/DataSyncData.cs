@@ -35,6 +35,8 @@ namespace PowerApps.DataSync.Tool.Data
 
         internal bool IsConnected => ConnDetail != null;
 
+        internal string OrgUrl => ConnDetail == null ? "" : ConnDetail.WebApplicationUrl;
+
         internal void SetDetails(IOrganizationService source, ConnectionDetail sourceDetail)
         {
             Service = source;

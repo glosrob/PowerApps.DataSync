@@ -7,6 +7,10 @@ namespace PowerApps.DataSync.Tool.Models
     {
         internal Guid Id { get; set; }
 
+        internal Guid SourceId { get; set; }
+
+        internal Guid TargetId { get; set; }
+
         internal TableConfig Config { get; set; }
 
         internal string SourceDisplay { get; set; }
@@ -18,6 +22,7 @@ namespace PowerApps.DataSync.Tool.Models
             var newIssue = new MissingInTargetIssue
             {
                 Id = Guid.NewGuid(),
+                SourceId = sourceRecord.Id,
                 Config = config,
                 SourceDisplay = sourceRecord.GetDisplayValue(config.DisplayAttribute),
                 TargetDisplay = string.Empty,
@@ -30,6 +35,8 @@ namespace PowerApps.DataSync.Tool.Models
             var newIssue = new ValueDoesNotMatchIssue
             {
                 Id = Guid.NewGuid(),
+                SourceId = sourceRecord.Id,
+                TargetId = targetRecord.Id,
                 Config = config,
                 SourceDisplay = sourceRecord.GetDisplayValue(config.DisplayAttribute),
                 TargetDisplay = targetRecord.GetDisplayValue(config.DisplayAttribute),

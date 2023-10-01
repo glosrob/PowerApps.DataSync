@@ -4,6 +4,7 @@ using PowerApps.DataSync.Tool.Data;
 using PowerApps.DataSync.Tool.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -150,7 +151,9 @@ namespace PowerApps.DataSync.Tool.Controllers
             {
                 return;
             }
-            throw new NotImplementedException();
+
+            var url = $"{Target.OrgUrl}/main.aspx?etn={SelectedIssue.Config.Schema}&pagetype=entityrecord&id={SelectedIssue.TargetId}";
+            Process.Start(url);
         }
 
         internal void OpenSource()
@@ -159,7 +162,9 @@ namespace PowerApps.DataSync.Tool.Controllers
             {
                 return;
             }
-            throw new NotImplementedException();
+
+            var url = $"{Source.OrgUrl}/main.aspx?etn={SelectedIssue.Config.Schema}&pagetype=entityrecord&id={SelectedIssue.SourceId}";
+            Process.Start(url);
         }
     }
 }

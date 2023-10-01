@@ -236,16 +236,17 @@ namespace PowerApps.DataSync.Tool
         {
             llCopyFromSource.Enabled = true;
             llViewSource.Enabled = true;
-            llViewTargetRecord.Enabled = true;
             if (issue is ValueDoesNotMatchIssue valueIssue)
             {
                 txtSource.Text = valueIssue.SourceFieldValueDisplay ?? string.Empty;
                 txtTarget.Text = valueIssue.TargetFieldValueDisplay ?? string.Empty;
+                llViewTargetRecord.Enabled = true;
             }
             else
             {
                 txtSource.Text = issue.SourceDisplay ?? string.Empty;
                 txtTarget.Text = issue.TargetDisplay ?? string.Empty;
+                llViewTargetRecord.Enabled = false;
             }
         }
 
